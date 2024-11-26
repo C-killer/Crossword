@@ -2,7 +2,7 @@ package com.crossword;
 
 
 public class Grille {
-    private Case[][] grille;
+    private final Case[][] grille;
 
     public Grille(int hauteur, int largeur) {
         grille = new Case[hauteur][largeur];

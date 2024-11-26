@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Emplacement {
-    private List<Case> cases;
+    private final List<Case> cases;
 
     public Emplacement() {
         cases = new ArrayList<>();
@@ -26,9 +26,6 @@ public class Emplacement {
      */
     @Override
     public String toString() {
-        if (cases == null) {
-            return "";
-        }
         StringBuilder sb = new StringBuilder();
         for (Case c : cases) {
             sb.append(c.getChar());

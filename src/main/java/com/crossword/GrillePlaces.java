@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GrillePlaces {
-    private Grille grille;
+    private final Grille grille;
     private List<Emplacement> places;
     private int NbHorizontal;
 
