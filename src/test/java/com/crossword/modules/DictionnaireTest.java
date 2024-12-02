@@ -1,7 +1,8 @@
-package com.crossword;
+package com.crossword.modules;
 
 import static org.junit.Assert.*;
 
+import com.crossword.Dictionnaire;
 import org.junit.Test;
 
 public class DictionnaireTest {
@@ -41,7 +42,7 @@ public class DictionnaireTest {
             assertEquals(323422, gut.size());
             // taille attendue pour cet ensemble de mots
             assertEquals(expected[len - 2], red.size());
-            // resultat attendu : nombre de mots reduits
+            // result attendu : nombre de mots reduits
             assertEquals(323422, red.size() + notX);
             // on ne réduit pas plus en faisant deux fois
             assertEquals(0, red.filtreLongueur(len));

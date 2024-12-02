@@ -1,7 +1,10 @@
-package com.crossword;
+package com.crossword.modules;
 
 import static org.junit.Assert.*;
 
+import com.crossword.Grille;
+import com.crossword.GrilleLoader;
+import com.crossword.GrillePlaces;
 import org.junit.Test;
 
 public class GrillePlacesTest {

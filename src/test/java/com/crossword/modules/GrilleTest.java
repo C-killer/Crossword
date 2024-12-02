@@ -1,4 +1,4 @@
-package com.crossword;
+package com.crossword.modules;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import com.crossword.Case;
+import com.crossword.Grille;
+import com.crossword.GrilleLoader;
 import org.junit.Test;
 
 public class GrilleTest {

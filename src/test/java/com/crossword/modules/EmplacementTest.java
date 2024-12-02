@@ -1,7 +1,9 @@
-package com.crossword;
+package com.crossword.modules;
 
 import static org.junit.Assert.*;
 
+import com.crossword.Case;
+import com.crossword.Emplacement;
 import org.junit.Test;
 
 public class EmplacementTest {

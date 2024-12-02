@@ -1,5 +1,8 @@
 package com.crossword;
 
+import com.crossword.modules.CaseTest;
+import com.crossword.modules.EmplacementTest;
+import com.crossword.modules.GrilleTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -16,6 +19,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ CaseTest.class, GrilleTest.class, EmplacementTest.class })
 
-public class StageTest1 {
+public class Stage1Test {
 
 }
