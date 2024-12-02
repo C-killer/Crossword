@@ -13,7 +13,13 @@ public class Emplacement {
     public void add(Case e) { cases.add(e); }
     public int size() { return cases.size(); }
     public void clear() { cases.clear(); }
-    public Case getCase(int i) { return cases.get(i); }
+    public Case getCase(int i) {
+        if (i < 0 || i >= cases.size()) {
+            throw new IndexOutOfBoundsException("Invalid index: " + i);
+        }
+        return cases.get(i);
+    }
+    
 
     /**
      * Returns a string representation of the Emplacement object.

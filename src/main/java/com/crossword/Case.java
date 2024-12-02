@@ -25,9 +25,10 @@ public class Case {
      */
     public int getLig() { return lig; }
     public int getCol() { return col; }
-    public char getChar() { return c; }
 
+    public char getChar() { return c; }
     public void setChar(char c) { this.c = c;}
+
     public boolean isVide() { return c == ' ';}
     public boolean isPleine() { return c == '*';}
 

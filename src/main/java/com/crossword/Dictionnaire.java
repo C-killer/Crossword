@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Un ensemble de mots.
  *
@@ -14,7 +13,7 @@ import java.util.List;
 public class Dictionnaire {
 
     // stockage des mots
-    private List<String> mots = new ArrayList<>();
+    private final List<String> mots = new ArrayList<>();
 
     /**
      * Ajoute un mot au Dictionnaire, en dernière position.
@@ -24,8 +23,15 @@ public class Dictionnaire {
         mots.add(mot.toLowerCase());
     }
 
+    public void setMots(List<String> newMots) {
+        mots.clear();
+        for (String mot : newMots) {
+            mots.add(mot.toLowerCase());
+        }
+    }
+
     /**
-     * Taille du dictionnaire, c'est à dire nombre de mots qu'il contient.
+     * Taille du dictionnaire, c'est-à-dire nombre de mots qu'il contient.
      * @return la taille
      */
     public int size() {
@@ -39,6 +45,10 @@ public class Dictionnaire {
      */
     public String get(int i) {
         return mots.get(i);
+    }
+
+    public List<String> getMots() {
+        return mots;
     }
 
     /**
@@ -66,30 +76,29 @@ public class Dictionnaire {
             else
                 cpt++;
         }
-        mots = cible;
+        this.setMots(cible);
         return cpt;
     }
 
 
     /**
-     * Filters the list of words based on the specified length and character.
-     * Only words that are at least 'x' characters long and have the 'x'-th character
-     * equal to the specified 'c' are kept. All other words are removed.
-     *
-     * @param c the character that must be at position 'x' in the words to be kept
-     * @param x the minimum length of the words to be kept
-     * @return the number of words that were removed during the filtering process
+     * modifiera le dictionnaire pour ne garder que les mots
+     * dont la ième lettre est égale au caractère de l’argument c
+     * @param c char à filtre
+     * @param i index
+     * @return le nombre de mots qui ont été supprimés du dictionnaire
      */
-    public int filtreParLettre(char c, int x) {
+    public int filtreParLettre(char c, int i) {
         List<String> cible = new ArrayList<>();
         int cpt=0;
         for (String mot : mots) {
-            if (mot.length() >= x && mot.charAt(x) == c)
+            if (i < mot.length() && mot.charAt(i) == c) {
                 cible.add(mot);
-            else
+            } else {
                 cpt++;
+            }
         }
-        mots = cible;
+        this.setMots(cible);
         return cpt;
     }
 
@@ -120,7 +129,4 @@ public class Dictionnaire {
             return "Dico size =" + size();
         }
     }
-
-
-
 }

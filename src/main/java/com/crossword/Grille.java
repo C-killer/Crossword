@@ -14,6 +14,9 @@ public class Grille {
     }
 
     public Case getCase(int lig, int col) {
+        if (lig < 0 || lig >= nbLig() || col < 0 || col >= nbCol()) {
+            throw new IndexOutOfBoundsException("Invalid row or column index: (" + lig + ", " + col + ")");
+        }
         return grille[lig][col];
     }
 
