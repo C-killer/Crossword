@@ -47,6 +47,20 @@ public class GrillePotentiel {
         return motsPot;
     }
 
+    // 从motsPot中index为i的domain中移除mots
+    public void removeMot(int i, String mot) {
+        Dictionnaire dict = motsPot.get(i);
+        dict.getMots().remove(mot);
+    }
+
+    public GrillePlaces getGrillePlaces() {
+        return grillePlaces;
+    }
+
+    public Dictionnaire getDict() {
+        return dict;
+    }
+
     /**
      * Vérifie si la grille est dans un état "mort" (sans solution possible).
      *
@@ -72,11 +86,10 @@ public class GrillePotentiel {
         if (m < 0 || m >= motsPot.size()) {
             throw new IllegalArgumentException("Indice m hors des limites.");
         }
-
-        // 1. 创建新的网格，固定单词
+        // 创建新的网格，固定单词
         GrillePlaces newGrillePlaces = grillePlaces.fixer(m, soluce);
 
-        // 2. 更新候选字典
+        // 更新候选字典
         List<Dictionnaire> updatedMotsPot = new ArrayList<>();
         for (int i = 0; i < motsPot.size(); i++) {
             if (i == m) {
@@ -88,7 +101,6 @@ public class GrillePotentiel {
                 // 动态更新其他位置
                 Dictionnaire updatedDict = motsPot.get(i).copy();
                 Emplacement emplacement = grillePlaces.getPlaces().get(i);
-
                 for (int j = 0; j < emplacement.size(); j++) {
                     Case c = emplacement.getCase(j);
                     if (c.getChar() != ' ') {  // 如果格子有固定字母
@@ -98,8 +110,8 @@ public class GrillePotentiel {
                 updatedMotsPot.add(updatedDict);
             }
         }
-
-        // 3. 返回新的 GrillePotentiel 对象
+        // 返回新的 GrillePotentiel 对象
         return new GrillePotentiel(newGrillePlaces, dict);
     }
+
 }

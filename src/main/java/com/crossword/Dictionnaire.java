@@ -5,13 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Un ensemble de mots.
  *
  */
 public class Dictionnaire {
-
     // stockage des mots
     private final List<String> mots = new ArrayList<>();
 
@@ -103,6 +104,21 @@ public class Dictionnaire {
     }
 
 
+    public int filtreParEnsembleLettre(Set<Character> lettres, int i) {
+        List<String> cible = new ArrayList<>();
+        int cpt = 0;
+        for (String mot : mots) {
+            if (i < mot.length() && lettres.contains(mot.charAt(i))) {
+                cible.add(mot);
+            } else {
+                cpt++;
+            }
+        }
+        setMots(cible);
+        return cpt;
+    }
+
+
     public static Dictionnaire loadDictionnaire(String path) {
         Dictionnaire dico = new Dictionnaire();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -129,4 +145,16 @@ public class Dictionnaire {
             return "Dico size =" + size();
         }
     }
+
+
+    public Set<Character> getLettres(int i) {
+        Set<Character> lettres = new HashSet<>();
+        for (String mot : mots) {
+            if (i < mot.length()) {
+                lettres.add(mot.charAt(i));
+            }
+        }
+        return lettres;
+    }
+
 }

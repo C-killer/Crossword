@@ -40,4 +40,14 @@ public class Case {
     public Case copy() {
         return new Case(lig, col, c);
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Case case1 = (Case) o;
+//        if (lig != case1.lig) return false;
+//        if (col != case1.col) return false;
+//        return c == case1.c;
+//  }
 }

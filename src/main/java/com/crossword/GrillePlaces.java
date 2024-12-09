@@ -31,6 +31,10 @@ public class GrillePlaces {
         return nbHorizontal;
     }
 
+    public Grille getGrille() {
+        return grille;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
