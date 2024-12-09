@@ -38,6 +38,27 @@ public class GrillePotentiel {
 
     }
 
+
+    public GrillePotentiel(GrillePlaces grille, Dictionnaire dicoComplet, List<Dictionnaire> motsPotentielActuel) {
+        this.grillePlaces = grille;
+        this.dict = dicoComplet;
+        this.motsPot = new ArrayList<>();
+        // 从已有的潜在词列表生成新的潜在词列表
+        for (int i = 0; i < grille.getPlaces().size(); i++) {
+            Emplacement emplacement = grille.getPlaces().get(i);
+            Dictionnaire d = motsPotentielActuel.get(i).copy();
+            // 按照当前网格的固定字母进一步过滤
+            for (int j = 0; j < emplacement.size(); j++) {
+                Case c = emplacement.getCase(j);
+                if (c.getChar() != ' ') {
+                    d.filtreParLettre(c.getChar(), j);
+                }
+            }
+            this.motsPot.add(d);
+        }
+    }
+
+
     /**
      * Accède aux potentiels de mots pour chaque emplacement.
      *

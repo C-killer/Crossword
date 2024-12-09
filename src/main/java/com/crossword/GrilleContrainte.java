@@ -3,25 +3,38 @@ package com.crossword;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrilleContrainte extends GrillePotentiel{
+public class GrilleContrainte extends GrillePotentiel {
     private final List<IContrainte> contraintes;
 
+    // 原始构造器，生成约束
     public GrilleContrainte(GrillePlaces grille, Dictionnaire dicoComplet) {
         super(grille, dicoComplet);
-        contraintes = new ArrayList<>();
+        this.contraintes = initializeContraintes(grille);
+        propage();
+    }
 
+    // 新的构造器，复用已有的约束
+    public GrilleContrainte(GrillePlaces grille, Dictionnaire dicoComplet, List<IContrainte> contraintesExistantes) {
+        super(grille, dicoComplet);
+        this.contraintes = contraintesExistantes;
+        propage();
+    }
+
+    // 初始化约束的逻辑
+    private List<IContrainte> initializeContraintes(GrillePlaces grille) {
+        List<IContrainte> contraintes = new ArrayList<>();
         List<Emplacement> places = grille.getPlaces();
         int nbHorizontal = grille.getNbHorizontal();
 
         for (int i = 0; i < nbHorizontal; i++) {
-            Emplacement horizontal = places.get(i);     // 水平位置
-            for (int j = nbHorizontal ; j < places.size() ; j++) {
-                Emplacement vertical = places.get(j);   // 垂直位置
+            Emplacement horizontal = places.get(i); // 水平位置
+            for (int j = nbHorizontal; j < places.size(); j++) {
+                Emplacement vertical = places.get(j); // 垂直位置
 
-                for (int x = 0; x < horizontal.size();x++) {
+                for (int x = 0; x < horizontal.size(); x++) {
                     Case horizX = horizontal.getCase(x);
-                    if (horizX.getChar() == ' '){
-                        for (int y = 0; y < vertical.size();y++) {
+                    if (horizX.getChar() == ' ') {
+                        for (int y = 0; y < vertical.size(); y++) {
                             Case vertY = vertical.getCase(y);
                             if (vertY.getChar() == ' ' && horizX == vertY) {
                                 contraintes.add(new CroixContrainte(i, x, j, y));
@@ -29,10 +42,9 @@ public class GrilleContrainte extends GrillePotentiel{
                         }
                     }
                 }
-
             }
         }
-        propage();
+        return contraintes;
     }
 
     public List<IContrainte> getContraintes() {
@@ -41,14 +53,13 @@ public class GrilleContrainte extends GrillePotentiel{
 
     @Override
     public GrilleContrainte fixer(int m, String soluce) {
+        // 调用父类的 fixer 方法生成新的 GrillePotentiel
         GrillePotentiel newGrillePotentiel = super.fixer(m, soluce);
-        GrilleContrainte newGrilleContrainte = new GrilleContrainte(newGrillePotentiel.getGrillePlaces(), this.getDict());
-        if (!newGrilleContrainte.propage()) {
-            System.out.println("Dead state reached after fixing.");
+        if (newGrillePotentiel == this) {
+            return this;
         }
-        return newGrilleContrainte;
+        return new GrilleContrainte(newGrillePotentiel.getGrillePlaces(), this.getDict(), this.contraintes);
     }
-
 
     @Override
     public String toString() {
@@ -59,7 +70,6 @@ public class GrilleContrainte extends GrillePotentiel{
         }
         return sb.toString();
     }
-
 
     private boolean propage() {
         while (true) {
@@ -82,5 +92,4 @@ public class GrilleContrainte extends GrillePotentiel{
             }
         }
     }
-
 }

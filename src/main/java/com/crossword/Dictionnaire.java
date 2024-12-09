@@ -15,6 +15,7 @@ import java.util.Set;
 public class Dictionnaire {
     // stockage des mots
     private final List<String> mots = new ArrayList<>();
+    private EnsembleLettre[] cache = null;
 
     /**
      * Ajoute un mot au Dictionnaire, en dernière position.
@@ -22,6 +23,7 @@ public class Dictionnaire {
      */
     public void add(String mot) {
         mots.add(mot.toLowerCase());
+        cache = null;   // 修改字典后，清空缓存
     }
 
     public void setMots(List<String> newMots) {
@@ -29,6 +31,7 @@ public class Dictionnaire {
         for (String mot : newMots) {
             mots.add(mot.toLowerCase());
         }
+        cache = null;
     }
 
     /**
@@ -59,6 +62,7 @@ public class Dictionnaire {
     public Dictionnaire copy () {
         Dictionnaire copy = new Dictionnaire();
         copy.mots.addAll(mots);
+        copy.cache = cache;
         return copy;
     }
 
@@ -155,6 +159,27 @@ public class Dictionnaire {
             }
         }
         return lettres;
+    }
+
+
+    // 实现缓存的 charAt 方法
+    public EnsembleLettre charAt(int index) {
+        if (mots.isEmpty()) {
+            return new EnsembleLettre(); // 空字典返回空集合
+        }
+        if (cache == null) {
+            cache = new EnsembleLettre[mots.get(0).length()];
+        }
+        if (cache[index] == null) {
+            Set<Character> lettres = new HashSet<>();
+            for (String mot : mots) {
+                if (index < mot.length()) {
+                    lettres.add(mot.charAt(index));
+                }
+            }
+            cache[index] = new EnsembleLettre(lettres);
+        }
+        return cache[index];
     }
 
 }
